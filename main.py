@@ -3,9 +3,8 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_chroma.vectorstores import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
-from langchain.prompts import ChatPromptTemplate
+from langchain.chat_models import ChatPromptTemplate
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
@@ -29,7 +28,6 @@ Responda a pergunta do usuário:
 com base nas seguintes informações:
 {base_conhecimento}
 """
-
 
 class perguntaRequest(BaseModel):
     pergunta: str
