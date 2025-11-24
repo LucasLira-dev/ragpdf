@@ -11,9 +11,14 @@ load_dotenv()
 app = FastAPI()
 
 
+ALLOWED_ORIGINS = [
+    "https://codenotes-wheat.vercel.app",
+    "http://localhost:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -42,6 +47,11 @@ try:
 except Exception as e:
     print("Erro ao inicializar GoogleGenerativeAIEmbeddings:", e)
     db = None
+
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "db_disponivel": db is not None}
 
 
 @app.post("/api/chat")
