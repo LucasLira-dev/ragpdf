@@ -50,6 +50,7 @@ except Exception as e:
 
 
 @app.get("/health")
+@app.head("/health")
 async def health_check():
     return {"status": "ok", "db_disponivel": db is not None}
 
